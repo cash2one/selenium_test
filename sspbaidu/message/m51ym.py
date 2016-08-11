@@ -19,28 +19,30 @@ class m51ym(object):
         fp = open(file, 'r')
         for line in fp:
             #print 'read: '+line
+            # 去掉 末尾的换行符
+            line =line.strip('\n')
             l=line.split(':')
             #print l[0]
             if len(l) > 1:
                 d[l[0]]=l[1]
 
         #打印 项目配置信息
-        print 'projectName:  '+ d['projectName']
-        print 'projectId:  '+d['projectId']
-        print 'username: '+ d['username']
-        print 'password: ' + d['password']
+        print '51ymprojectName:  '+ d['51ymprojectName']
+        print '51ymprojectId:  '+d['51ymprojectId']
+        print '51ymusername: '+ d['51ymusername']
+        print '51ympassword: ' + d['51ympassword']
         #保存项目配置信息
-        self.__pid = d['projectId']
-        self.__username = d['username']
-        self.__password = d['password']
+        self.__pid = d['51ymprojectId']
+        self.__username = d['51ymusername']
+        self.__password = d['51ympassword']
 
     def login(self):
         '''
         登录 获取保存 token
         :return:
         '''
-        self.__username='he1chenglong'
-        self.__password='1qazsw2'
+        # self.__username='he1chenglong'
+        # self.__password='1qazsw2'
         #s=requests.get('http://api.51ym.me/UserInterface.aspx?action=login&username=he1chenglong&password=1qazsw2')
         # http://api.51ym.me/UserInterface.aspx?action=login&username=用户名&password=密码
         cmd='http://api.51ym.me/UserInterface.aspx?action=login&username=%s&password=%s'%(self.__username,self.__password)

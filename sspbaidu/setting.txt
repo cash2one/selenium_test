@@ -1,8 +1,13 @@
 # www.51ym.me 手机验证码
-projectName:百度SPP
-projectId:684
-username:he1chenglong
-password:1qazsw2
+51ymprojectName:百度SPP
+51ymprojectId:684
+51ymusername:he1chenglong
+51ympassword:1qazsw2
 # www,yundama.com  图片验证码
-damaUsername:he1chenglong
-damaPassword:1qazsw2
+yundamaUsername:he1chenglong
+yundamaPassword:1qazsw2
+# www.ema6.com  手机验证码
+ema6projectName:百度SPP
+ema6projectId:9329
+ema6username:he1chenglong
+ema6password:1qazsw2

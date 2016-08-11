@@ -36,13 +36,15 @@ class yundama(object):
         fp = open(file, 'r')
         for line in fp:
             #print 'read: '+line
+            # 去掉 末尾的换行符
+            line =line.strip('\n')
             l=line.split(':')
             #print l[0]
             if len(l) > 1:
                 d[l[0]]=l[1]
 
-        self.username = d['damaUsername']
-        self.password = d['damaPassword']
+        self.username = d['yundamaUsername']
+        self.password = d['yundamaPassword']
 
     def decode(self):
         ####################### 一键识别函数 YDM_EasyDecodeByPath #######################

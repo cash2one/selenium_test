@@ -6,12 +6,19 @@ from PIL import Image
 import pytesseract
 from recognition.yundama import yundama
 from   message.m51ym import m51ym
+from   message.ema6 import ema6
 
 def sspRegister():
     browser =webdriver.Firefox()
 
     # 打开ssp 注册网页
-    driver=browser.get("http://ssp.baidu.com/static/register.html#/~productId=2")
+    # driver=browser.get("http://ssp.baidu.com/static/register.html#/~productId=2")
+    driver=browser.get("http://ssp.baidu.com/home")
+    #点击我是开发者
+    browser.find_element_by_class_name("login-entrence").click()
+    # 点击 注册新用户
+    image= browser.find_element_by_id("register-user").click()
+
 
     # 保存 验证码 到本地
 
@@ -58,7 +65,8 @@ def sspRegister():
     browser.find_element_by_id("email").send_keys("he7chenglong@163.com")
 
     #  登陆验证码平台
-    mes=m51ym()
+    # mes=m51ym()
+    mes=ema6()
     mes.login()
     # 获取 要注册 的手机号
     pnum=mes.getPhoneNumber()

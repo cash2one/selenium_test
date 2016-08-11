@@ -18,6 +18,8 @@ class ema6(object):
         fp = open(file, 'r')
         for line in fp:
             #print 'read: '+line
+            # 去掉 末尾的换行符
+            line =line.strip('\n')
             l=line.split(':')
             #print l[0]
             if len(l) > 1:
@@ -34,9 +36,9 @@ class ema6(object):
         self.__password = d['ema6password']
         self.__parameter= 'K5uq9pNtFkNqZL%2breS3Xsw%3d%3d'
 
-        self.__username='he1chenglong'
-        self.__password='1qazsw2'
-        self.__pid='9329'
+        # self.__username='he1chenglong'
+        # self.__password='1qazsw2'
+        # self.__pid='9329'
 
     def login(self):
         '''
@@ -101,7 +103,7 @@ class ema6(object):
             cmd='http://api.ema6.com:20161/Api/userSingleGetMessage?token=%s&itemId=%s&phone=%s'%(self.__token,self.__pid,self.__pnum)
             vc=requests.get(cmd)
             print vc.text
-            if vc.text[0:3] == 'MSG&':
+            if vc.text[0:4] == 'MSG&':
                 print 'try to find the number:'
                 numlist=re.findall('(\d+)',vc.text,re.S)
                 print 'getVerifyCode:'+numlist[0]
