@@ -13,7 +13,7 @@ def sspRegister():
     # 打开ssp 注册网页
     driver=browser.get("http://ssp.baidu.com/static/register.html#/~productId=2")
 
-    # 保存验证码 到本地
+    # 保存 验证码 到本地
 
     image= browser.find_element_by_id("verify-image")
     # 保存整个页面
@@ -55,7 +55,7 @@ def sspRegister():
     browser.find_element_by_id("confirm-password").send_keys("hehenglong")
 
     #电子邮件
-    browser.find_element_by_id("email").send_keys("he1chenglong@163.com")
+    browser.find_element_by_id("email").send_keys("he7chenglong@163.com")
 
     #  登陆验证码平台
     mes=m51ym()
@@ -73,7 +73,7 @@ def sspRegister():
     vcode=mes.getVerifyCode()
 
     #短信验证码
-    browser.find_element_by_id("verify-code").send_keys("vcode")
+    browser.find_element_by_id("verify-code").send_keys(vcode)
 
     # 提交信息
     browser.find_element_by_id("submit").click()
