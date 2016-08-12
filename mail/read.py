@@ -56,20 +56,24 @@ def print_info(msg, indent=0):
             if charset:
                 content = content.decode(charset)
             print('%sText: %s' % ('  ' * indent, content + '...'))
-            url = re.findall('href="(.*?)">',content,re.S)
-            print 'get url :'
-            print url[0]
-            baidu_ssp_url= url[0]
+            try :
+                url = re.findall('href="(.*?)">',content,re.S)
+                print 'get url :'
+                print url[0]
+                baidu_ssp_url= url[0]
+            except:
+                print 'faild can not get url!'
+                print Exception
         else:
             print('%sAttachment: %s' % ('  ' * indent, content_type))
 
-def loginmail():
+def loginmail(email,password,pop3_server):
     # email = raw_input('Email: ')
     # password = raw_input('Password: ')
     # pop3_server = raw_input('POP3 server: ')
-    email = 'oblqelqyqm'
-    password = 'zovqjw8t'
-    pop3_server = 'pop3.sohu.com'
+    # email = 'oblqelqyqm'
+    # password = 'zovqjw8t'
+    # pop3_server = 'pop3.sohu.com'
     server = poplib.POP3(pop3_server)
     #server.set_debuglevel(1)
     print(server.getwelcome())
@@ -90,6 +94,7 @@ def loginmail():
     server.quit()
 
 if __name__ == '__main__':
-    loginmail()
+    #loginmail('oblqelqyqm','zovqjw8t', 'pop3.sohu.com')
+    loginmail('ufkffhpvaj@sohu.com','3ky7yspu','pop3.sohu.com')
     url = getbaidu_ssp_url()
     print url
