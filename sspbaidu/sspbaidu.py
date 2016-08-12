@@ -7,21 +7,31 @@ import pytesseract
 from recognition.yundama import yundama
 from   message.m51ym import m51ym
 from   message.ema6 import ema6
+from selenium.webdriver.support.ui import WebDriverWait
+import time
 
 def sspRegister():
+    print '开始运行 ：'
     browser =webdriver.Firefox()
 
     # 打开ssp 注册网页
     # driver=browser.get("http://ssp.baidu.com/static/register.html#/~productId=2")
     driver=browser.get("http://ssp.baidu.com/home")
+
     #点击我是开发者
-    browser.find_element_by_class_name("login-entrence").click()
+    print '点击我是开发者'
+    browser.find_elements_by_class_name("login-entrence")[1].click()
+    time.sleep(5)
     # 点击 注册新用户
     image= browser.find_element_by_id("register-user").click()
+    time.sleep(5)
 
+    #等待页面加载
+    print '等待页面加载'
+    WebDriverWait(driver,50).until(lambda  drvier:browser.find_element_by_id("verify-image"))
+    print '页面加载 完成 。。。'
 
     # 保存 验证码 到本地
-
     image= browser.find_element_by_id("verify-image")
     # 保存整个页面
     browser.get_screenshot_as_file('tu.jpg')
@@ -53,13 +63,13 @@ def sspRegister():
     browser.find_element_by_id("image-verify-code").send_keys(vcode)
 
     # 用户名
-    browser.find_element_by_id("username").send_keys("he1chenglong")
+    browser.find_element_by_id("username").send_keys("he7chenglong")
 
     # 设置密码
-    browser.find_element_by_id("password").send_keys("hehenglong")
+    browser.find_element_by_id("password").send_keys("Hehenglong123")
 
     #确认密码
-    browser.find_element_by_id("confirm-password").send_keys("hehenglong")
+    browser.find_element_by_id("confirm-password").send_keys("Hehenglong123")
 
     #电子邮件
     browser.find_element_by_id("email").send_keys("he7chenglong@163.com")
