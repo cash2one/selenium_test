@@ -16,18 +16,16 @@ initfilesdir='D:\\python\\sfz'
 # 存储所有结果的文件
 allresultfile = 'D:\\python\\info.txt'
 
-
-
 #打开火狐浏览器
 browser = webdriver.Firefox()
-#打开识别网站
-driver = browser.get("http://ocr.ccyunmai.com/idcard/")
 
 #查看当前目录
 filelist=os.listdir(initfilesdir)
 count=0
 for pathname in filelist:
-    print '----------------------------------------------------------------- '+str(count)
+    print '-----------------------------------------------------------------次数： '+str(count)
+    #打开识别网站
+    driver = browser.get("http://ocr.ccyunmai.com/idcard/")
     count=count+1
     # 定位 要操作的文件目录
     filedir ="D:\\python\\sfz\\"+pathname
@@ -39,7 +37,7 @@ for pathname in filelist:
         # 身份证信息识别
         # 图像 文件名
         filename = filedir+"\\2.jpg"
-        print 'filename: '+filename
+        # print 'filename: '+filename
 
         # 将 正面信息 拷贝一份
         #picfile='D:\\python\\tmp\\'+str(i) +'.jpg'
@@ -65,8 +63,7 @@ for pathname in filelist:
 
         print result.text
 
-            # 解析识别结果
-
+        # 解析识别结果
         try:
             name=re.findall('<name>(.*?)</name>',result.text,re.S)[0]
             cardno=re.findall('<cardno>(.*?)</cardno>',result.text,re.S)[0]
@@ -105,7 +102,7 @@ for pathname in filelist:
 
         print bankresult.text
 
-        #-------------------------------------------------------
+        #---------------------------------保存文件----------------------
         #  保存文件
         resultfile = filedir+'\\'+pathname+'.txt'
         print 'resultfile name is: '+resultfile
