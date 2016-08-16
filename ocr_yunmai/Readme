@@ -7,6 +7,7 @@ http://ocr.ccyunmai.com/idcard/
 
 apiyunmai.py
 
+可以使用 每天限制100次 调用
 
 思路二 ：  使用 网页 http://ocr.ccyunmai.com/idcard/
 
@@ -14,7 +15,7 @@ apiyunmai.py
 
 cardinfo.py
 
-遇到的问题 ： 服务器 封锁 相应操作
+遇到的问题 ：软件可以正常运行。但是 使用多次后，服务器 封锁 相应操作
 
 2 . python 爬虫
 
@@ -25,8 +26,14 @@ cardinfo.py
 
 autoclick.py
 
+可以识别身份证信息。
 注意 要先打开软件，查看其句柄。软件操作期间 ，不要动鼠标
+
+PC 端没有 银行卡识别软件
 
 思路 四 ： 使用 android 软件
 
 自动点击 实现
+
+android 银行卡识别软件 直接调用camera ，没有从 图片读取的 功能，没有操作空间。
+android 身份证识别软件 对 图像像素有要求
