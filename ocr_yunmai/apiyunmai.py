@@ -14,6 +14,8 @@ import urllib2
 reload(sys)
 sys.setdefaultencoding('utf-8')
 '''
+http://www.yunmaiocr.com/
+
 协议 参考文档
 [厦门云脉]二代证云识别接口【客户测试专用】.doc
 [厦门云脉]银行卡云识别接口【客户测试专用】.doc
@@ -63,8 +65,6 @@ passmd5 = md5pwd.hexdigest()
 
 print 'pass  md5 32bit :'
 print passmd5
-print 'pass md5 16bit :'
-print passmd5[8:24]
 
 l.append('<password>'+passmd5.upper()+'</password>')
 
@@ -89,7 +89,9 @@ l.append('<verify>'+md5allstr.upper()+'</verify>')
 
 # <file>二进制文件，文件最大5M</file><!--要进行识别的文件-->
 filename=u'D:\\python\\sfz\\(1)王燕斌\\2.jpg'
-l.append('<file>'+filename+'</file>')
+fb=open(filename,'rb')
+imagebin=fb.read()
+l.append('<file>'+imagebin+'</file>')
 
 # <ext>文件扩展名</ext><!--只能为下面的之一：jpg/jpeg/bmp/tif/tiff-->
 l.append('<ext>jpg</ext>')
@@ -101,7 +103,7 @@ l.append('<json>1</json>')
 
 xmlstr=''.join(l)
 
-print xmlstr
+# print xmlstr
 
 url='http://www.yunmaiocr.com/SrvXMLAPI'
 
