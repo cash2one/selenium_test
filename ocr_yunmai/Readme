@@ -7,7 +7,6 @@ http://ocr.ccyunmai.com/idcard/
 
 apiyunmai.py
 
-遇到的问题 ：一直提示 登陆失败   。-100
 
 思路二 ：  使用 网页 http://ocr.ccyunmai.com/idcard/
 
@@ -26,6 +25,7 @@ cardinfo.py
 
 autoclick.py
 
+注意 要先打开软件，查看其句柄。软件操作期间 ，不要动鼠标
 
 思路 四 ： 使用 android 软件
 

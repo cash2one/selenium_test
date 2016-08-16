@@ -38,16 +38,15 @@ http://www.yunmaiocr.com/
 l=[]
 # <action>idcard.scan</action>
 # 身份证识别
-action='idcard.scan'
+# action='idcard.scan'
 
 # 银行卡识别
-# action = 'bankcard.scan'
+action = 'bankcard.scan'
 l.append('<action>'+action+'</action>')
 
 # <client>username</client>
 username='228cacc7-74ce-4b39-b008-fbd3a93f5da4'
-# 例子中名字
-# username='63607adc-771d-43cc-a3b3-be3b7bbcc621'
+
 l.append('<client>'+username+'</client>')
 
 # <system>系统描述：包括硬件型号和操作系统型号等</system><!--不能为空-->
@@ -56,10 +55,8 @@ l.append('<system>'+system+'</system>')
 
 # <password>password</password><!--必须MD5加密-->
 pwd = 'WoZkPPOcnRGVgIJqpvHtbBrnEDVBrd'
-# 例子中密码
-# pwd ='GPZFXGpVoUXMlRXZhsKrCevgBNOZly'
+
 md5pwd = hashlib.md5()
-# md5pwd = md5.new()
 md5pwd.update(pwd)
 passmd5 = md5pwd.hexdigest()
 
@@ -88,7 +85,7 @@ md5allstr = md5all.hexdigest()
 l.append('<verify>'+md5allstr.upper()+'</verify>')
 
 # <file>二进制文件，文件最大5M</file><!--要进行识别的文件-->
-filename=u'D:\\python\\sfz\\(1)王燕斌\\2.jpg'
+filename=u'D:\\python\\sfz\\(1)王燕斌\\4.jpg'
 fb=open(filename,'rb')
 imagebin=fb.read()
 l.append('<file>'+imagebin+'</file>')
@@ -108,8 +105,8 @@ xmlstr=''.join(l)
 url='http://www.yunmaiocr.com/SrvXMLAPI'
 
 # 使用 Request
-# result=requests.post(url,xmlstr)
-# print result.text
+result=requests.post(url,xmlstr)
+print result.text
 
 # 使用 urllib2
 req = urllib2.Request(url=url,headers={'Content-Type':'text/xml'},data=xmlstr)

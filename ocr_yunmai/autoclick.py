@@ -8,6 +8,7 @@ import shutil
 import os.path
 
 # 要先打开软件 ，读取这两个句柄
+# 注意 要先打开软件，查看其句柄。软件操作期间 ，不要动鼠标
 # 整个窗口的句柄
 apphandle=0xA0E60
 # 要读取的文本框的句柄
@@ -35,7 +36,7 @@ dlg = app.Window_(title_re = u'身份证识别')
 for pathname in filelist:
     print '-----------------------------------------------------------------次数： '+str(count)
     count=count+1
-    if count<30:
+    if count<130:
         continue
 
     # 定位 要操作的文件目录
