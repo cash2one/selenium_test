@@ -13,6 +13,16 @@ apphandle=0xA0E60
 # 要读取的文本框的句柄
 texthandle=0x1F1060
 
+
+# 存储所有结果的文件
+allresultfile = 'D:\\python\\infosfz.txt'
+
+# 图像文件所在目录
+initfilesdir='D:\\python\\sfz'
+#查看当前目录
+filelist=os.listdir(initfilesdir)
+count=0
+
 # name = 'C:\\Users\\GAOPAN\\Desktop\\sfz\\IDCard.exe'
 app=application.Application()
 
@@ -22,15 +32,10 @@ app.connect(handle=apphandle)
 # 获取 窗口 句柄
 dlg = app.Window_(title_re = u'身份证识别')
 
-# 图像文件所在目录
-initfilesdir='D:\\python\\sfz'
-#查看当前目录
-filelist=os.listdir(initfilesdir)
-count=0
 for pathname in filelist:
     print '-----------------------------------------------------------------次数： '+str(count)
     count=count+1
-    if count<10:
+    if count<30:
         continue
 
     # 定位 要操作的文件目录
@@ -60,6 +65,7 @@ for pathname in filelist:
 
         # 获取弹出的对话框
         dlgopen =app.Window_(title_re = u'打开')
+        print dlgopen
         # 输入图片路径
         dlgopen.TypeKeys(picfile)
         # 点击打开
@@ -84,3 +90,9 @@ for pathname in filelist:
             fb=file(resultfile,'a')
             fb.write(idtext.encode('UTF-8'))
             fb.close()
+
+            # 保存到 统一的文件中
+            fball=file(allresultfile,'a')
+            fball.write('------------------------')
+            fball.write(idtext.encode('UTF-8'))
+            fball.close()
