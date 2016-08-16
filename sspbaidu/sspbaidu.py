@@ -10,12 +10,11 @@ from   message.ema6 import ema6
 from  mail.read import *
 from selenium.webdriver.support.ui import WebDriverWait
 import time
-
-maildict=dict()
+import re
 
 def initMailDict():
     file='mail.txt'
-
+    maildict=dict()
     fp=open(file,'r')
     for line in fp:
         line=line.strip('\n')
@@ -32,22 +31,6 @@ def clickVerifyMail():
     verifyurl = getbaidu_ssp_url()
     browser = webdriver.Firefox()
     driver = browser.get(verifyurl)
-
-def souhumail(account):
-    print 'souhu mail :'
-    browser = webdriver.Firefox()
-    driver = browser.get("http://mail.sohu.com")
-    # 填写 用户名
-    # browser.find_element_by_class_name('addFocus ipt-account ng-pristine ng-valid').send_keys(account)
-    browser.find_element_by_xpath("//*[@id='loginBody']/div[1]/form/div[1]/div[1]/input").send_keys(account)
-    #browser.find_element_by_xpath("//*[@id='theme']/form/div[1]/div[1]/input").send_keys(account)
-
-    pwd=maildict[account]
-    # 填写 密码
-
-    # browser.find_element_by_xpath("//*[@id='theme']/form/div[2]/div[1]/input").send_keys(pwd)
-    # 点击 登录
-    browser.find_element_by_class_name('btn-login fontFamily').click()
 
 
 def sspLogin():
@@ -71,8 +54,8 @@ def sspLogin():
     # 开始登录
     browser.find_element_by_xpath('//*[@id="login"]/form/button').click()
 
-def sspRegister():
-    print 'sspRegister 开始注册 ：'
+def sspRegister(mailaddr,mailpwd):
+    print 'sspRegister 开始注册 开始打开 Firefox浏览器 ：'
     browser =webdriver.Firefox()
 
     # 打开ssp 注册网页
@@ -99,16 +82,18 @@ def sspRegister():
     browser.find_element_by_id("image-verify-code").send_keys(vcode)
 
     # 用户名
-    browser.find_element_by_id("username").send_keys("he9chenglong")
+    username=re.findall('(.*?)@',mailaddr,re.S)[0]+'abc'
+    browser.find_element_by_id("username").send_keys(username)
 
     # 设置密码
-    browser.find_element_by_id("password").send_keys("Hehenglong123")
+    password='Aa1'+mailpwd
+    browser.find_element_by_id("password").send_keys(password)
 
     #确认密码
-    browser.find_element_by_id("confirm-password").send_keys("Hehenglong123")
+    browser.find_element_by_id("confirm-password").send_keys(password)
 
     #电子邮件
-    browser.find_element_by_id("email").send_keys("wlqlcwsdlj@sohu.com")
+    browser.find_element_by_id("email").send_keys(mailaddr)
 
     #  登陆验证码平台
     # mes=m51ym()
@@ -131,6 +116,14 @@ def sspRegister():
 
     # 提交信息
     browser.find_element_by_id("submit").click()
+
+    print u'等待 验证 email'
+    time.sleep(10)
+    print u'开始获取email中的验证链接 '
+    loginmail(mailaddr,mailpwd, 'pop3.sohu.com')
+    verifyurl = getbaidu_ssp_url()
+    print u'点击验证链接'
+    driver=browser.get(verifyurl)
 
 def verificode(browser,imageid):
     # 保存 验证码 到本地
@@ -160,9 +153,11 @@ def verificode(browser,imageid):
     return vcode
 
 if __name__ == '__main__':
-    initMailDict()
-    # sspRegister()
+    print '程序开始运行。。。'
+    mdict=initMailDict()
+
+    for mailaddr,mailpwd in mdict.items():
+        print mailaddr,mailpwd
+        sspRegister(mailaddr,mailpwd)
     # sspLogin()
-    # souhumail('dlwhvxrvrw@sohu.com')
-    clickVerifyMail()
 
