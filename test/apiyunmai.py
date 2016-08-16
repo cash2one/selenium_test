@@ -45,7 +45,7 @@ l.append('<action>'+action+'</action>')
 # <client>username</client>
 username='228cacc7-74ce-4b39-b008-fbd3a93f5da4'
 # 例子中名字
-username='63607adc-771d-43cc-a3b3-be3b7bbcc621'
+# username='63607adc-771d-43cc-a3b3-be3b7bbcc621'
 l.append('<client>'+username+'</client>')
 
 # <system>系统描述：包括硬件型号和操作系统型号等</system><!--不能为空-->
@@ -55,7 +55,7 @@ l.append('<system>'+system+'</system>')
 # <password>password</password><!--必须MD5加密-->
 pwd = 'WoZkPPOcnRGVgIJqpvHtbBrnEDVBrd'
 # 例子中密码
-pwd ='GPZFXGpVoUXMlRXZhsKrCevgBNOZly'
+# pwd ='GPZFXGpVoUXMlRXZhsKrCevgBNOZly'
 md5pwd = hashlib.md5()
 # md5pwd = md5.new()
 md5pwd.update(pwd)
@@ -66,7 +66,7 @@ print passmd5
 print 'pass md5 16bit :'
 print passmd5[8:24]
 
-l.append('<password>'+passmd5[8:24].upper()+'</password>')
+l.append('<password>'+passmd5.upper()+'</password>')
 
 # <key>随机数UUID</key><!--不能为空，也永远不能重复，长度没有限制-->
 uuid =''.join(map(lambda xx:(hex(ord(xx))[2:]),os.urandom(4)))
