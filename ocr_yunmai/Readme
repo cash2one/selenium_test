@@ -1,0 +1,32 @@
+身份证 信息  银行卡 信息  图像 识别
+
+云脉
+http://ocr.ccyunmai.com/idcard/
+
+思路一 ： 使用 开发者 api
+
+apiyunmai.py
+
+遇到的问题 ：一直提示 登陆失败   。-100
+
+思路二 ：  使用 网页 http://ocr.ccyunmai.com/idcard/
+
+1 。  使用selenium
+
+cardinfo.py
+
+遇到的问题 ： 服务器 封锁 相应操作
+
+2 . python 爬虫
+
+
+思路三 ：使用   PC 软件
+
+自动 点击 功能
+
+autoclick.py
+
+
+思路 四 ： 使用 android 软件
+
+自动点击 实现
