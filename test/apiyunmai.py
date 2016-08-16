@@ -9,10 +9,15 @@ import os.path
 import hashlib
 import requests
 import md5
+import urllib2
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
 '''
+协议 参考文档
+[厦门云脉]二代证云识别接口【客户测试专用】.doc
+[厦门云脉]银行卡云识别接口【客户测试专用】.doc
+
 <action>idcard.scan</action>
 <client>username</client>
 <system>系统描述：包括硬件型号和操作系统型号等</system><!--不能为空-->
@@ -30,11 +35,17 @@ sys.setdefaultencoding('utf-8')
 '''
 l=[]
 # <action>idcard.scan</action>
+# 身份证识别
 action='idcard.scan'
+
+# 银行卡识别
+# action = 'bankcard.scan'
 l.append('<action>'+action+'</action>')
 
 # <client>username</client>
-username='he1chenglong'
+username='228cacc7-74ce-4b39-b008-fbd3a93f5da4'
+# 例子中名字
+username='63607adc-771d-43cc-a3b3-be3b7bbcc621'
 l.append('<client>'+username+'</client>')
 
 # <system>系统描述：包括硬件型号和操作系统型号等</system><!--不能为空-->
@@ -42,13 +53,20 @@ system='PC'
 l.append('<system>'+system+'</system>')
 
 # <password>password</password><!--必须MD5加密-->
-pwd = '1qazsw2'
+pwd = 'WoZkPPOcnRGVgIJqpvHtbBrnEDVBrd'
+# 例子中密码
+pwd ='GPZFXGpVoUXMlRXZhsKrCevgBNOZly'
 md5pwd = hashlib.md5()
 # md5pwd = md5.new()
 md5pwd.update(pwd)
 passmd5 = md5pwd.hexdigest()
 
-l.append('<password>'+passmd5+'</password>')
+print 'pass  md5 32bit :'
+print passmd5
+print 'pass md5 16bit :'
+print passmd5[8:24]
+
+l.append('<password>'+passmd5[8:24].upper()+'</password>')
 
 # <key>随机数UUID</key><!--不能为空，也永远不能重复，长度没有限制-->
 uuid =''.join(map(lambda xx:(hex(ord(xx))[2:]),os.urandom(4)))
@@ -67,20 +85,32 @@ md5all = hashlib.md5()
 md5all.update(allstr)
 md5allstr = md5all.hexdigest()
 
-l.append('<verify>'+md5allstr.upper()+')</verify>')
+l.append('<verify>'+md5allstr.upper()+'</verify>')
 
 # <file>二进制文件，文件最大5M</file><!--要进行识别的文件-->
 filename=u'D:\\python\\sfz\\(1)王燕斌\\2.jpg'
 l.append('<file>'+filename+'</file>')
 
 # <ext>文件扩展名</ext><!--只能为下面的之一：jpg/jpeg/bmp/tif/tiff-->
-l.append('<ext>jpg/ext>')
+l.append('<ext>jpg</ext>')
+
+
+# <json>是否需要将结果转成json格式</json><!-- 当值为1时，返回的结果是json格式，如果不传该参数或为其它值，结果返回是xml格式 -->
+l.append('<json>1</json>')
+
 
 xmlstr=''.join(l)
 
 print xmlstr
 
 url='http://www.yunmaiocr.com/SrvXMLAPI'
-result=requests.post(url,xmlstr)
 
-print result.text
+# 使用 Request
+# result=requests.post(url,xmlstr)
+# print result.text
+
+# 使用 urllib2
+req = urllib2.Request(url=url,headers={'Content-Type':'text/xml'},data=xmlstr)
+response = urllib2.urlopen(req)
+res = response.read()
+print res
